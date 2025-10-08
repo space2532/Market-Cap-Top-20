@@ -69,12 +69,12 @@ const EntryExitTable = ({ currentYearData = [], previousYearData = [], onCompany
 
   return (
     <div className="w-full">
-      {/* ↓↓↓ 이 div가 두 개의 테이블을 가로로 나란히 배치하는 역할을 합니다. ↓↓↓ */}
-      <div className="flex flex-row gap-6">
-        {/* Left: 신규 진입 (w-1/2 클래스로 너비의 절반을 차지) */}
-        <div className="w-1/2 min-w-0 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+      {/* This container places the two tables side by side on larger screens */}
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Left: New Entries (w-1/2 takes half width) */}
+        <div className="w-full md:w-1/2 min-w-0 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
           <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
-            <h3 className="text-base font-semibold text-gray-800">Top 20 신규 진입</h3>
+            <h3 className="text-base font-semibold text-gray-800">Top 20 New Entries</h3>
           </div>
           <div className="overflow-x-auto flex-1">
             <table className="min-w-full divide-y divide-gray-200">
@@ -87,7 +87,7 @@ const EntryExitTable = ({ currentYearData = [], previousYearData = [], onCompany
               <tbody className="divide-y divide-gray-100">
                 {entriesTop20.length === 0 && (
                   <tr>
-                    <td colSpan={2} className="px-4 py-6 text-sm text-gray-500 text-center">데이터가 없습니다</td>
+                    <td colSpan={2} className="px-4 py-6 text-sm text-gray-500 text-center">No data</td>
                   </tr>
                 )}
                 {entriesTop20.map((row) => (
@@ -103,10 +103,10 @@ const EntryExitTable = ({ currentYearData = [], previousYearData = [], onCompany
           </div>
         </div>
 
-        {/* Right: 순위 탈락 (w-1/2 클래스로 너비의 절반을 차지) */}
-        <div className="w-1/2 min-w-0 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+        {/* Right: Dropped Out (w-1/2 takes half width) */}
+        <div className="w-full md:w-1/2 min-w-0 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
           <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
-            <h3 className="text-base font-semibold text-gray-800">Top 20 순위 탈락</h3>
+            <h3 className="text-base font-semibold text-gray-800">Top 20 Dropped Out</h3>
           </div>
           <div className="overflow-x-auto flex-1">
             <table className="min-w-full divide-y divide-gray-200">
@@ -119,7 +119,7 @@ const EntryExitTable = ({ currentYearData = [], previousYearData = [], onCompany
               <tbody className="divide-y divide-gray-100">
                 {exitsTop20.length === 0 && (
                   <tr>
-                    <td colSpan={2} className="px-4 py-6 text-sm text-gray-500 text-center">데이터가 없습니다</td>
+                    <td colSpan={2} className="px-4 py-6 text-sm text-gray-500 text-center">No data</td>
                   </tr>
                 )}
                 {exitsTop20.map((row) => (

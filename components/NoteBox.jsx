@@ -29,14 +29,14 @@ const NoteBox = ({ title = '', content = '', onSave, onDelete }) => {
             onClick={handleSave}
             className="inline-flex items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            저장
+            Save
           </button>
           <button
             type="button"
             onClick={handleDelete}
             className="inline-flex items-center rounded-md bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 ring-1 ring-inset ring-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           >
-            삭제
+            Delete
           </button>
         </div>
       </div>
@@ -50,7 +50,7 @@ const NoteBox = ({ title = '', content = '', onSave, onDelete }) => {
           onChange={(e) => setText(e.target.value)}
           rows={6}
           className="block w-full resize-y rounded-md border border-gray-200 bg-white p-3 text-sm text-gray-800 placeholder:text-gray-400 shadow-sm outline-none ring-0 focus:border-blue-400"
-          placeholder="메모를 입력하세요..."
+          placeholder="Enter your note..."
         />
       </div>
     </div>
