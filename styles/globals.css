@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* Optional: app-wide tweaks */
+html, body, #__next {
+  height: 100%;
+}
+
