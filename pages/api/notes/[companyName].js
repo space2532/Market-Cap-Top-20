@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   }
 
   const decodedName = decodeURIComponent(companyName);
-  const allowedFields = new Set(['industry', 'business', 'recent_issues']);
+  const allowedFields = new Set(['industry', 'business', 'recent_issues', 'user_memo']);
 
   // Connect to MongoDB
   let db = null;
@@ -30,6 +30,8 @@ export default async function handler(req, res) {
         industry: doc?.industry || '',
         business: doc?.business || '',
         recent_issues: doc?.recent_issues || '',
+        user_memo: doc?.user_memo || '',
+        last_updated: doc?.last_updated || null,
       });
     } catch (e) {
       return res.status(500).json({ error: 'Failed to fetch notes' });
@@ -44,7 +46,13 @@ export default async function handler(req, res) {
       }
       const value = String(content || '');
       const collection = db.collection('notes');
-      const update = { $set: { companyName: decodedName, [field]: value } };
+      const update = { 
+        $set: { 
+          companyName: decodedName, 
+          [field]: value,
+          last_updated: new Date()
+        } 
+      };
       await collection.updateOne({ companyName: decodedName }, update, { upsert: true });
       return res.status(200).json({ ok: true });
     } catch (e) {
@@ -59,7 +67,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Invalid field' });
       }
       const collection = db.collection('notes');
-      const update = { $set: { [field]: '' } };
+      const update = { 
+        $set: { 
+          [field]: '',
+          last_updated: new Date()
+        } 
+      };
       await collection.updateOne({ companyName: decodedName }, update, { upsert: true });
       return res.status(200).json({ ok: true });
     } catch (e) {

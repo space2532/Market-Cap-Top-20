@@ -8,7 +8,7 @@ import CompanyDetail from '../components/CompanyDetail';
 const IndexPage = () => {
   const [selectedYear, setSelectedYear] = useState(2025);
   const [companyData, setCompanyData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [previousCompanyData, setPreviousCompanyData] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -19,7 +19,7 @@ const IndexPage = () => {
 
   const fetchCompanyData = async (year) => {
     try {
-      setIsLoading(true);
+      setLoading(true);
       setError(null);
       const response = await fetch(`/api/companies/${year}`);
       if (!response.ok) {
@@ -32,7 +32,7 @@ const IndexPage = () => {
       setError(err.message);
       console.error('Error fetching company data:', err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -129,14 +129,15 @@ const IndexPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <>
       <Head>
-        <title>CAPRANK - Market Cap Rank Top 20</title>
-        <meta name="description" content="A dynamic data visualization project built with D3.js and Next.js." />
+        <title>Top 20 by Market Cap</title>
+        <meta name="description" content="This is a dynamic data visualization project implemented with D3.js and Next.js." />
       </Head>
+      <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Market Cap Rank Top 20
+          Market Cap Top 20
         </h1>
         
         <div className="mb-8">
@@ -151,11 +152,11 @@ const IndexPage = () => {
 
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={handleThemeEdit} title="Click to add yearly theme note">Company Data for {selectedYear}</span>
+            <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={handleThemeEdit} title="Click to enter annual theme note">Company Data for {selectedYear}</span>
             {annualTheme && String(annualTheme).trim().length > 0 ? <span>{` - ${annualTheme}`}</span> : null}
           </h2>
           
-          {isLoading && (
+          {loading && (
             <div className="w-full py-20 flex items-center justify-center bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
@@ -168,14 +169,14 @@ const IndexPage = () => {
           <div className="absolute inset-0 bg-black opacity-40" onClick={closeTrendModal}></div>
           <div className="relative bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6">
             <div className="mb-4">
-              <h4 className="text-lg font-semibold text-gray-900">{selectedYear} Trends and Paradigms</h4>
+              <h4 className="text-lg font-semibold text-gray-900">{selectedYear} Trends and Paradigm</h4>
             </div>
             <div>
               <textarea
                 className="w-full h-60 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 value={trendDraft}
                 onChange={(e) => setTrendDraft(e.target.value)}
-                placeholder="Summarize trends and paradigms."
+                placeholder="Summarize trends and paradigms in multiple lines."
               />
             </div>
             <div className="mt-4 flex justify-end gap-2">
@@ -205,12 +206,12 @@ const IndexPage = () => {
             </div>
           )}
           
-          {companyData && !isLoading && !error && (
+          {companyData && !loading && !error && (
             <div className="space-y-8">
               {/* Market Bar Chart */}
               <div className="bg-white rounded-lg border">
                 <h3 className="text-lg font-semibold text-gray-800 p-6 pb-0">
-                  <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={openTrendModal} title="Click to add yearly trend note">Market Cap Visualization - {selectedYear}</span>
+                  <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={openTrendModal} title="Click to enter annual trend note">Market Cap Visualization - {selectedYear}</span>
                 </h3>
                 <MarketBarChart 
                   data={companyData.data}
@@ -221,7 +222,7 @@ const IndexPage = () => {
               {/* Entry / Exit Table */}
               <div className="bg-white p-6 rounded-lg border">
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
-                  <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={openTrendModal} title="Click to add yearly trend note">Entry / Exit (Top 20)</span>
+                  <span className="cursor-pointer hover:underline hover:text-gray-800 active:text-gray-900" onClick={openTrendModal} title="Click to enter annual trend note">Entry / Exit (Top 20)</span>
                 </h3>
                 <EntryExitTable
                   currentYearData={Array.isArray(companyData?.data) ? companyData.data : []}
@@ -240,7 +241,8 @@ const IndexPage = () => {
           onClose={() => setSelectedCompany(null)}
         />
       )}
-    </div>
+      </div>
+    </>
   );
 };
 
