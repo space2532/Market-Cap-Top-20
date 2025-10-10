@@ -31,13 +31,15 @@ const NoteBox = ({ title = '', content = '', onSave, onDelete }) => {
           >
             Save
           </button>
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="inline-flex items-center rounded-md bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 ring-1 ring-inset ring-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-          >
-            Delete
-          </button>
+          {typeof onDelete === 'function' && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="inline-flex items-center rounded-md bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 ring-1 ring-inset ring-red-200 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
       <div className="p-4">

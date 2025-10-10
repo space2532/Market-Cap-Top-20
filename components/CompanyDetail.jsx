@@ -166,19 +166,16 @@ const CompanyDetail = ({ companyName, onClose, logoUrl }) => {
                   title="Industry"
                   content={notes.industry}
                   onSave={(val) => saveField('industry', val)}
-                  onDelete={() => deleteField('industry')}
                 />
                 <NoteBox
                   title="Core Business"
                   content={notes.business}
                   onSave={(val) => saveField('business', val)}
-                  onDelete={() => deleteField('business')}
                 />
                 <NoteBox
                   title="Recent Key Issues"
                   content={notes.recent_issues}
                   onSave={(val) => saveField('recent_issues', val)}
-                  onDelete={() => deleteField('recent_issues')}
                 />
               </>
             ) : (
